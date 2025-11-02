@@ -588,6 +588,8 @@ html,body{
 @media (max-width: 768px) {
     .container {
         padding: 20px;
+        margin: 0 auto;
+        width: 90%;
     }
 
     .timeline-projects {
