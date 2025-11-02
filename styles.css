@@ -410,6 +410,7 @@ html,body{
     margin-top:12px;
 }
 
+
 .btn{
     background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
     color:white;
@@ -511,10 +512,10 @@ html,body{
     width: 45%;
     position: relative;
     transition: all 0.3s ease;
-    background: rgba(13, 23, 43, 0.7);
+    background: rgba(13, 23, 43, 0.95);
     padding: 1.5rem;
     border-radius: 12px;
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .timeline-project:nth-child(odd) .project-content {
@@ -556,7 +557,7 @@ html,body{
     }
 
     .project-content:hover .project-actions {
-        opacity: 1;
+        display: block;
         transform: translateY(0);
     }
 }
@@ -585,17 +586,58 @@ html,body{
 
 /* Media query for mobile responsiveness */
 @media (max-width: 768px) {
+    .timeline-project .project-content {
+    width: calc(100% - 3rem) !important;
+    margin: 0 0 0 3rem !important;
+    }
+
+    .timeline-project:nth-child(even) .project-content,
+    .timeline-project:nth-child(odd) .project-content {
+    margin: 0 0 0 3rem !important;
+    }
+
+    .project-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+    .timeline-projects {
+        padding: 1rem 0;
+    }
+
     .timeline-line {
-        left: 2rem;
+        left: 1.5rem;
     }
     
     .timeline-point {
-        left: 2rem;
+        left: 1.5rem;
+        width: 10px;
+        height: 10px;
     }
     
     .project-content {
-        width: calc(100% - 4rem);
-        margin-left: 4rem !important;
+        width: calc(100% - 3rem);
+        margin-left: 3rem !important;
+        padding: 1rem;
+        background: rgba(13, 23, 43, 0.95);
+    }
+
+    .timeline-project {
+        margin: 2rem 0;
+    }
+
+    .project-image {
+        height: 160px;
+    }
+    
+    .project-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .project-content p {
+        font-size: 0.9rem;
+        margin-top: 0.75rem;
     }
 }
 
