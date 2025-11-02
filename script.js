@@ -1,4 +1,3 @@
-// Improved interactivity: nav toggle, smooth scroll, and API check
 document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('nav-toggle');
   const nav = document.getElementById('nav');

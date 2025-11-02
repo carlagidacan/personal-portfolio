@@ -406,6 +406,7 @@ html,body{
 }
 
 .project-actions{
+    display: none;
     margin-top:12px;
 }
 
@@ -464,6 +465,114 @@ html,body{
     display: grid;
     gap: 1rem;
     margin-top: 2rem;
+}
+
+.timeline-projects {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, 
+        rgba(6,182,212,0.1) 0%,
+        rgba(6,182,212,0.3) 10%,
+        rgba(6,182,212,0.3) 90%,
+        rgba(6,182,212,0.1) 100%
+    );
+}
+
+.timeline-project {
+    position: relative;
+    margin: 4rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.timeline-point {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    background: var(--accent-2);
+    border-radius: 50%;
+    z-index: 2;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(6,182,212,0.3);
+}
+
+.project-content {
+    width: 45%;
+    position: relative;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    background: var(--card);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.timeline-project:nth-child(odd) .project-content {
+    margin-right: 55%;
+}
+
+.timeline-project:nth-child(even) .project-content {
+    margin-left: 55%;
+}
+
+.project-image {
+    display: none;
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-content:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.project-content:hover .project-image {
+    display: block;
+}
+
+.project-content:hover .project-actions {
+    display: block;
+}
+
+.timeline-project:hover .timeline-point {
+    transform: translate(-50%, -50%) scale(1.5);
+    box-shadow: 0 0 30px rgba(6,182,212,0.5);
+}
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 2rem;
+    }
+    
+    .timeline-point {
+        left: 2rem;
+    }
+    
+    .project-content {
+        width: calc(100% - 4rem);
+        margin-left: 4rem !important;
+    }
 }
 
 .contact-item {
@@ -559,5 +668,3 @@ html,body{
 .cta-row{
     margin-top:18px;
 }
-
-/*enaaaaa
