@@ -510,12 +510,11 @@ html,body{
 .project-content {
     width: 45%;
     position: relative;
-    opacity: 0.7;
     transition: all 0.3s ease;
-    background: var(--card);
+    background: rgba(13, 23, 43, 0.7);
     padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
 }
 
 .timeline-project:nth-child(odd) .project-content {
@@ -527,12 +526,16 @@ html,body{
 }
 
 .project-image {
-    display: none;
     width: 100%;
     height: 200px;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .project-image img {
@@ -541,17 +544,38 @@ html,body{
     object-fit: cover;
 }
 
-.project-content:hover {
-    opacity: 1;
-    transform: translateY(-5px);
+/* Desktop hover effects */
+@media (hover: hover) {
+    .project-content:hover {
+        transform: translateY(-5px);
+    }
+
+    .project-content:hover .project-image {
+        opacity: 1;
+        position: relative;
+    }
+
+    .project-content:hover .project-actions {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.project-content:hover .project-image {
-    display: block;
-}
+/* Touch device styles */
+@media (hover: none) {
+    .project-content:active {
+        transform: translateY(-5px);
+    }
+    
+    .project-image {
+        position: relative;
+        opacity: 1;
+    }
 
-.project-content:hover .project-actions {
-    display: block;
+    .project-actions {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 .timeline-project:hover .timeline-point {
