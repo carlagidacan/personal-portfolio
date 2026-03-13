@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/chat", "destination": "/api/chat" },
+    { "source": "/conversations/(.*)", "destination": "/api/conversations/$1" },
+    { "source": "/telegram/webhook", "destination": "/api/telegram/webhook" },
+    { "source": "/(.*)", "destination": "/api/$1" }
+  ]
+}
