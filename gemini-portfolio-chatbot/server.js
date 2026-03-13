@@ -398,6 +398,23 @@ async function maybeStartTelegramPolling() {
 
 // Routes
 
+// Health routes
+app.get("/", (req, res) => {
+  res.json({
+    ok: true,
+    service: "personal-portfolio-backend",
+    status: "online",
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.json({
+    ok: true,
+    status: "healthy",
+    model: MODEL_NAME,
+  });
+});
+
 // Get conversation messages
 app.get("/conversations/:conversationId", async (req, res) => {
   const { conversationId } = req.params;

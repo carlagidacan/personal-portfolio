@@ -1,6 +1,8 @@
 {
   "version": 2,
   "rewrites": [
+    { "source": "/", "destination": "/api/health" },
+    { "source": "/health", "destination": "/api/health" },
     { "source": "/chat", "destination": "/api/chat" },
     { "source": "/conversations/(.*)", "destination": "/api/conversations/$1" },
     { "source": "/telegram/webhook", "destination": "/api/telegram/webhook" },
