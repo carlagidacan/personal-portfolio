@@ -321,7 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatBody = widget.querySelector('.chat-body');
     const sendBtn = widget.querySelector('.chat-send');
     const statusLabel = widget.querySelector('.chat-status-text');
-    const chatEndpoint = 'https://personal-portfolio-backend-eight.vercel.app/chat';
+    const apiBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? 'http://localhost:3000'
+      : 'https://personal-portfolio-backend-eight.vercel.app';
+    const chatEndpoint = `${apiBase}/chat`;
     const conversationStorageKey = 'portfolio-chat-conversation-id';
     const lastSeenStorageKey = 'portfolio-chat-last-seen';
 
