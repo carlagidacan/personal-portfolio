@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { MongoClient } from "mongodb";
 import crypto from "crypto";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
@@ -30,7 +31,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use(express.text({ type: "text/plain" }));
 
@@ -45,7 +46,7 @@ const MAX_CONVERSATIONS = 200;
 const HUMAN_ACTIVE_WINDOW_MS = 10 * 60 * 1000;
 const CONVERSATION_IDLE_MS = 24 * 60 * 60 * 1000;
 const TELEGRAM_POLL_INTERVAL_MS = 2500;
-const IS_VERCEL = process.env.VERCEL === "1";
+const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
 
 // Gemini AI setup
 const genAI = new GoogleGenerativeAI(GEMINI_KEY);
@@ -260,6 +261,7 @@ FACTS:
 
 USER QUESTION:
 ${message}`;
+
 }
 
 function buildAutoReplyPrompt(message, conversation) {
@@ -544,7 +546,7 @@ async function ensureStartup() {
     }
 
     // Polling is only for local fallback. On Vercel use webhook delivery only.
-    if (!IS_VERCEL) {
+    if (!IS_SERVERLESS) {
       await maybeStartTelegramPolling();
     }
   })();
@@ -552,7 +554,15 @@ async function ensureStartup() {
   return startupPromise;
 }
 
-if (!IS_VERCEL) {
+const IS_DIRECT_RUN = (() => {
+  try {
+    return process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+  } catch {
+    return false;
+  }
+})();
+
+if (IS_DIRECT_RUN) {
   void ensureStartup().then(() => {
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT} using model: ${MODEL_NAME}`);
