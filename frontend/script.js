@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
           params.set('since', lastSeenAt);
         }
 
-        const response = await fetch(`http://localhost:3000/conversations/${conversationId}?${params.toString()}`);
+        const response = await fetch(`${apiBase}/conversations/${conversationId}?${params.toString()}`);
         const data = await response.json().catch(() => ({}));
 
         if (!response.ok) {
@@ -581,7 +581,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         const errorMessage = error && typeof error.message === 'string' ? error.message : '';
         const hint = errorMessage.includes('Failed to fetch') || errorMessage.includes('NetworkError')
-          ? 'Local chat server is not reachable. Start it with: node server.js in gemini-portfolio-chatbot.'
+          ? (apiBase.includes('localhost')
+            ? 'Local chat server is not reachable. Start it with: node server.js in gemini-portfolio-chatbot.'
+            : 'Chat service is temporarily unavailable. Please try again in a moment.')
           : errorMessage || 'I could not reach the AI assistant right now. Please try again in a moment.';
 
         appendBubble(hint, 'chat-bubble-reply');
